@@ -6,7 +6,7 @@ const currentDate = data.currentDate;
 function filtrarTarjetas(dataCards, currentDate) {
     const tarjetasFiltradas = [];
     for (const data of dataCards) {
-        if (currentDate < data.date) {
+        if (currentDate > data.date) {
             tarjetasFiltradas.push(data);
         }
     }
@@ -26,6 +26,7 @@ function crearTarjeta(data2) {
             <div class="d-flex justify-content-between align-items-center">
                 <h3>Price: ${data2.price}</h3>
                 <a href="./details.html" class="btn btn-primary">Details</a>
+               
             </div>
         </div>
     </article>`;
