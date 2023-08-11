@@ -1,7 +1,40 @@
+document.addEventListener("keyup", event => {
+
+    if (event.target.matches("#inputSearchBox")) {
+    document.querySelectorAll(".card").forEach(evento => {
+         const searchText = event.target.value.toLowerCase();
+         const cardText = evento.textContent.toLowerCase();
+    if (cardText.includes(searchText)) {
+        evento.classList.remove("filtro");
+    }else {
+        evento.classList.add("filtro");
+       }
+});
+    
+const searchMessage = document.getElementById("searchMessage");
+const visibleCards = document.querySelectorAll(".card:not(.filtro)");
+    if (visibleCards.length === 0) {
+        searchMessage.textContent = "Sorry, there are no matches! :( ";
+    }else {
+        searchMessage.textContent = "";
+     }
+    }
+});
+
 const contenedorPrincipal = document.getElementById("sectionCards");
 const event2 = data.events;
 
-    function crearTarjeta(event2) {
+const checkboxs = document.getElementById("checkboxs");
+checkboxs.addEventListener('change', () => {
+    const checkedCheckboxes  = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
+    const selectedCategories = checkedCheckboxes.map(checkbox => checkbox.value); 
+    console.log(selectedCategories);
+    const filteredEvents = event2.filter(event => selectedCategories.includes(event.category));
+
+    mostrarLasTarjetas(filteredEvents, contenedorPrincipal);
+});
+
+ function crearTarjeta(event2) {
     return `<article class="card">
          <img src="${event2.image}">
          <div class="card-body text-center">
@@ -9,7 +42,7 @@ const event2 = data.events;
              <p class="card-text">${event2.description}</p>
              <div class="d-flex justify-content-between align-items-center">
                  <h3>Price: ${event2.price}</h3>
-                 <a href="/assets/pages/details.html" class="btn btn-primary">Details</a>
+                 <a href="./assets/pages/details.html?name=${event2.name}" class="btn btn-primary">Details</a>
              </div>
          </div>
          </article>`;
@@ -25,3 +58,4 @@ function mostrarLasTarjetas(listaDeTarjetas, contenedor) {
 }
 
 mostrarLasTarjetas(event2, contenedorPrincipal);
+

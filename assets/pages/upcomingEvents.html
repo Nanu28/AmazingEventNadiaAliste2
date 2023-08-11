@@ -12,77 +12,72 @@
 </head>
 
 <body>
-
-    
-
         <header>
             <img class="logo" src="../images/amazing_brand.png" alt="logo">
             <nav>
-                <a href="/index.html">HOME</a>
+                <a href="../../index.html">HOME</a>
                 <a href="#">UPCOMING EVENTS</a>
                 <a href="./pastEvents.html">PAST EVENTS</a>
                 <a href="./contact.html">CONTACT</a>
                 <a href="./stats.html">STATS</a>
             </nav>
         </header>
-
         <main>
-
             <section>
                 <h1>UPCOMING EVENTS</h1>
             </section>
-
             <div class="sectionCheck">
-                <div class="divCheck">
+                <div class="divCheck" id="checkboxs">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                            Category 1
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Food Fair" id="checkFood">
+                        <label class="form-check-label" for="checkFood">Food</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                        <label class="form-check-label" for="defaultCheck2">
-                            Category 2
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Museum" id="checkMuseum">
+                        <label class="form-check-label" for="checkMuseum">Museum</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                        <label class="form-check-label" for="defaultCheck3">
-                            Category 3
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Music Concert" id="checkConcert">
+                        <label class="form-check-label" for="checkConcert">Concert</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                        <label class="form-check-label" for="defaultCheck4">
-                            Category 4
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Race" id="checkRace">
+                        <label class="form-check-label" for="checkRace">Race</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-                        <label class="form-check-label" for="defaultCheck5">
-                            Category 5
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Book Exchange" id="checkBooks">
+                        <label class="form-check-label" for="checkBooks">Books</label>
                     </div>
 
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Cinema" id="checkCinema">
+                        <label class="form-check-label" for="checkCinema">Cinema</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Costume Party" id="checkParty">
+                        <label class="form-check-label" for="checkParty">Party</label>
+                    </div>
                 </div>
 
                 <div>
                     <div class="searchBox"> 
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2" id="inputSearchBox" type="search" placeholder="Search" aria-label="Search">
                         <img src="../images/search_Icon.png" alt="search_icon">
                     </div>
                 </div>
+            </div>
 
-
+            <div class="errorMessageDiv">
+                <div id="searchMessage">
+                </div>
             </div>
 
             <div id="sectionCards">
-
             </div>
 
             <footer>
@@ -93,15 +88,11 @@
                 </div>
                 <h4>COHORT-50</h4>
             </footer>
-
         </main>
-    
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
     <script src="../script/data.js"></script>
     <script src="../script/upcomingEvents.js"></script>
 </body>
-
 </html>

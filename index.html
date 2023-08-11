@@ -22,7 +22,7 @@
                 <a href="./assets/pages/stats.html">STATS</a>
             </nav>
         </header>
-
+        
         <main>
             <section>
                 <h1>HOME</h1>
@@ -49,55 +49,61 @@
                   </div>
             </section>
 
+            
             <div class="sectionCheck">
-                <div class="divCheck">
+                <div class="divCheck" id="checkboxs">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                            Category 1
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Food Fair" id="checkFood">
+                        <label class="form-check-label" for="checkFood">Food</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                        <label class="form-check-label" for="defaultCheck2">
-                            Category 2
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Museum" id="checkMuseum">
+                        <label class="form-check-label" for="checkMuseum">Museum</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                        <label class="form-check-label" for="defaultCheck3">
-                            Category 3
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Music Concert" id="checkConcert">
+                        <label class="form-check-label" for="checkConcert">Concert</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                        <label class="form-check-label" for="defaultCheck4">
-                            Category 4
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Race" id="checkRace">
+                        <label class="form-check-label" for="checkRace">Race</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-                        <label class="form-check-label" for="defaultCheck5">
-                            Category 5
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="Book Exchange" id="checkBooks">
+                        <label class="form-check-label" for="checkBooks">Books</label>
                     </div>
 
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Cinema" id="checkCinema">
+                        <label class="form-check-label" for="checkCinema">Cinema</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Costume Party" id="checkParty">
+                        <label class="form-check-label" for="checkParty">Party</label>
+                    </div>
                 </div>
 
                 <div>
                     <div class="searchBox"> 
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2" id="inputSearchBox" type="search" placeholder="Search" aria-label="Search">
                         <img src="./assets/images/search_Icon.png" alt="search_icon">
                     </div>
                 </div>
             </div>
+
+            <div class="errorMessageDiv">
+                <div id="searchMessage">
+                </div>
+            </div>
+
             <div id="sectionCards">
-                
             </div> 
+            
             <footer>
                 <div>
                     <a href="https://www.instagram.com/"><img src="./assets/images/instagram.png" alt="instagram"></a>
