@@ -8,7 +8,7 @@ document.addEventListener("keyup", event => {
             } else {
                 evento.classList.add("filtro");
             }
-        });
+        }); 
 
         const searchMessage = document.getElementById("searchMessage");
         const visibleCards = document.querySelectorAll(".card:not(.filtro)");
