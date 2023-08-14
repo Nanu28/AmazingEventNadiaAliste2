@@ -17,9 +17,9 @@ const contenedorDetails = document.getElementById("sectionCardsDetails");
 
 function crearTarjeta(event) {
   return `
-    <article class="cardsInfo">
+    <article class="cardsInfoDatails">
       <div>
-        <img src="${event.image}" class="card-img-top" alt="">
+        <img src="${event.image}" class="imgDetails" alt="">
       </div>
       <div class="cardsDatails" id="cardsDetailsInfo">
         <h2 class="card-title">${event.name}</h2>

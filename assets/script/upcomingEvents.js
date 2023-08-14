@@ -12,8 +12,12 @@ document.addEventListener("keyup", event => {
 
         const searchMessage = document.getElementById("searchMessage");
         const visibleCards = document.querySelectorAll(".card:not(.filtro)");
+
         if (visibleCards.length === 0) {
-            searchMessage.textContent = "Sorry, there are no matches! :( ";
+            searchMessage.innerHTML = `
+            <img src="../images/ImgError.png" class="imgError img-fluid"  id="imgError" alt="messageErrorCat">
+            <h2 class="text-center">Sorry, there are no matches! </h2>
+            `;
         } else {
             searchMessage.textContent = "";
         }
@@ -69,7 +73,11 @@ checkboxs.addEventListener('change', () => {
     const selectedCategories = checkedCheckboxes.map(checkbox => checkbox.value); 
     console.log(selectedCategories);
 
-    const filteredEvents = data2.filter(event => selectedCategories.includes(event.category));
+    if (selectedCategories.length === 0) {
+        mostrarLasTarjetas(event2, contenedorPrincipal);
+    } else {
+        const filteredEvents = event2.filter(event => selectedCategories.includes(event.category));
+        mostrarLasTarjetas(filteredEvents, contenedorPrincipal);
+    }
     
-    mostrarLasTarjetas(filteredEvents, contenedorPrincipal);
 });
