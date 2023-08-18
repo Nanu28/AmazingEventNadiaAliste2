@@ -64,7 +64,9 @@ h1{
     margin-left: 0;
 }
 
-.form-check{
+.form-check, .divCheck{
+    display: flex;
+    flex-direction: column;
     font-size: 1.2rem;
     font-weight: bold;
     padding-left: 1rem;
@@ -135,7 +137,7 @@ h2.card-title, .card-text{
 }
 
 #sectionCards img{
-    padding: 1rem;
+    padding: 1rem 1rem 0rem 1rem;
     border-radius: 3rem;
     height: 10rem;
     width: 14rem;
@@ -150,14 +152,6 @@ h2.card-title, .card-text{
     width: 18rem;
 }
 
-/* #sectionCardsDetails{
-    background-color: aqua;
-    border
-    padding: 1.5rem;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.487);
-    display: flex;
-    justify-content: center;
-} */
 
 .cardsInfoDatails{
     display: flex;
@@ -167,8 +161,9 @@ h2.card-title, .card-text{
 }
 
 .imgDetails{
-    width: 17rem;
-    height: 14rem;
+    width: 14rem;
+    height: 11rem;
+    object-fit: cover;
 }
 
 h3{
@@ -183,19 +178,25 @@ p{
 
 }
 
-.cardsInfoDatails{
-    border-style: dotted;
-    background-color: aliceblue;
-    border-radius: 3rem;
-    padding: 1.5rem;
-    margin: 3rem;
-    width: 18rem;
-    display: flex;  
-    flex-direction: column;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.487);
+.cardsInfoDetails{
+    display: flex !important;
+    flex-direction: column!important;
+    justify-content: space-around!important;
+    width: 18rem!important;
+    padding: 2rem!important;
+    gap: 1rem!important;
+    border: 1px solid black;
+    background-color: whitesmoke !important;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.487) !important;
+    border-style:dotted !important;
 }
 
-
+.sectionDetails{
+    display: flex;
+    align-items: center;
+    height: 36rem;
+    justify-content: center;
+}
 
 #sectionCardsDetails img{
     padding: 0.5rem;
@@ -260,7 +261,12 @@ fieldset{
     flex-direction: column;
     justify-content: center;
     padding: 1rem;
-    height: 25rem;
+    height: auto;
+    gap: 1.5rem;
+}
+
+#tableContainerEventStatistics, #tableContainerPastEventStatistics, #tableContainerUpcommingEventstatistics{
+    width: 18rem;
 }
 
 tbody, td, tfoot, th, thead, tr {
@@ -296,9 +302,6 @@ h4{
     color: whitesmoke;
 }
 
-.filtro{
-    display: none;
-}
 
 @media only screen and (min-width:769px) and (max-width:1024px){
     .logo{
@@ -325,12 +328,18 @@ h4{
         height: 30rem;
     }
 
+    #tableContainerEventStatistics, #tableContainerPastEventStatistics, #tableContainerUpcommingEventstatistics {
+        width: 45rem !important;
+        padding-left: 3rem;
+    }
+
     .titleTable{
         font-size: 1.3rem;
     }
 
-    td, th{
+    td, th {
         font-size: 1rem;
+        width: 30rem;
     }
 
     footer{
@@ -338,10 +347,6 @@ h4{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    }
-
-    .filtro{
-        display: none;
     }
 }
 
@@ -377,6 +382,10 @@ h4{
     font-size: 3rem;
     }
 
+    h2{
+    font-size: 1.5rem;
+    }
+
     .checkboxIcon{
     height: 2rem;
     }
@@ -391,13 +400,14 @@ h4{
         justify-content: space-between;
         padding: 1rem;
         font-size: 1rem;
+    
     }
 
     .divCheck{
         display: flex;
         flex-direction: row;
-        /* gap: 1.5rem; */
         align-items: center;
+        gap: 1rem;
     }
 
     #sectionCards{
@@ -412,32 +422,37 @@ h4{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 25rem;
+        height: 27rem;
         width: 17rem;
         box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.487);
     }
 
     .sectionDetails{
         display: flex;
-        flex-direction: column;
         align-items: center;
+        height: 25rem;
+        justify-content: center;
     }
 
-    .cardsInfoDatails{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 40rem;
-        padding: 2rem;
-        gap: 1rem;
+
+    .cardsInfoDetails{
+        display: flex !important;
+        flex-direction: row!important;
+        justify-content: space-around!important;
+        width: 45rem!important;
+        padding: 2rem!important;
+        gap: 1rem!important;
+        border: 1px solid black;
+        background-color: whitesmoke !important;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.487) !important;
+        border-style: dotted!important;
     }
 
-    #sectionCards img{
+    .imgDetails{
         padding: 0.5rem;
         border-radius: 3rem;
-        height: 11rem;
+        height: 14rem;
         width: 17rem;
-        object-fit: cover;
     }
 
     .cardsDatails p{
@@ -455,7 +470,7 @@ h4{
 
     .card-text{
         font-size: 1rem;
-        height: 5rem;
+        height: 6rem;
     }
 
     .card img{
@@ -477,11 +492,9 @@ h4{
         height: 35rem;
     }
 
-    .sectionTable{
-        display: flex;
-        width: auto;
-        height: 35rem;
-        padding: 3rem;
+    #tableContainerEventStatistics, #tableContainerPastEventStatistics, #tableContainerUpcommingEventstatistics {
+        width: 54rem !important;
+        padding-left: 3rem;
     }
 
     .titleTable{
@@ -489,7 +502,8 @@ h4{
     }
 
     td, th{
-        font-size: 1.2rem;
+        font-size: 1rem;
+        width: 30rem;
     }
 
     footer{
@@ -513,9 +527,5 @@ h4{
     h4{
         margin: 0;
         font-size: 1rem;
-    }
-
-    .filtro{
-        display: none;
     }
 }

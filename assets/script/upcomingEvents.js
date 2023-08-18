@@ -1,83 +1,103 @@
-document.addEventListener("keyup", event => {
-    if (event.target.matches("#inputSearchBox")) {
-        document.querySelectorAll(".card").forEach(evento => {
-            const searchText = event.target.value.toLowerCase();
-            const cardText = evento.textContent.toLowerCase();
-            if (cardText.includes(searchText)) {
-                evento.classList.remove("filtro");
-            } else {
-                evento.classList.add("filtro");
-            }
-        }); 
+const contenedorCards = document.getElementById("sectionCards");
+const url = "https://mindhub-xj03.onrender.com/api/amazing";
+let arrayEventos = [];
 
-        const searchMessage = document.getElementById("searchMessage");
-        const visibleCards = document.querySelectorAll(".card:not(.filtro)");
+const currentDate = new Date("2023-03-10");
 
-        if (visibleCards.length === 0) {
-            searchMessage.innerHTML = `
-            <img src="../images/ImgError.png" class="imgError img-fluid"  id="imgError" alt="messageErrorCat">
-            <h2 class="text-center">Sorry, there are no matches! </h2>
-            `;
-        } else {
-            searchMessage.textContent = "";
-        }
-    }
-});
 
-const contenedorPrincipal = document.getElementById("sectionCards");
-const event2 = data.events;
-const currentDate = data.currentDate;
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    arrayEventos = data.events.filter(event => {
+      const eventDate = new Date(event.date);
+      return eventDate > currentDate;
+    });
 
-function filtrarTarjetas(dataCards, currentDate) {
-    const tarjetasFiltradas = [];
-    for (const data of dataCards) {
-        if (currentDate < data.date) {
-            tarjetasFiltradas.push(data);
-        }
-    }
-    console.log(tarjetasFiltradas);
-    return tarjetasFiltradas;
-}
+    const eventosFiltrados = filtrarTarjetas(arrayEventos, currentDate);
+    mostrarLasTarjetas(eventosFiltrados, contenedorCards);
+  })
+  .catch(error => console.log(error));
 
-const data2 = filtrarTarjetas(event2, currentDate);
-console.log(data2);
 
-function crearTarjeta(data2) {
-    return `<article class="card">
-        <img src="${data2.image}">
-        <div class="card-body text-center">
-            <h2 class="card-title">${data2.name}</h2>
-            <p class="card-text">${data2.description}</p>
-            <div class="d-flex justify-content-between align-items-center">
-                <h3>Price: ${data2.price}</h3>
-                <a href="./details.html?name=${data2.name}" class="btn btn-primary">Details</a>
-            </div>
-        </div>
-    </article>`;
+function crearTarjeta(event) {
+  return `
+  <article class="card">
+    <img src="${event.image}">
+    <div class="card-body text-center">
+      <h2 class="card-title">${event.name}</h2>
+      <p class="card-text">${event.description}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <h3>Price: ${event.price}</h3>
+        <a href="../pages/details.html?name=${event.name}" class="btn btn-primary">Details</a>
+      </div>
+    </div>
+  </article>`;
 }
 
 function mostrarLasTarjetas(listaDeTarjetas, contenedor) {
-    let template = '';
-    for (const data2 of listaDeTarjetas) {
-        const aux = crearTarjeta(data2);
-        template += aux;
-    }
-    contenedor.innerHTML = template;
+  let template = '';
+  for (const event of listaDeTarjetas) {
+    const aux = crearTarjeta(event);
+    template += aux;
+  }
+  contenedor.innerHTML = template;
 }
 
-mostrarLasTarjetas(data2, contenedorPrincipal);
+const categoryContainer = document.getElementById("categoriesChechboxContainer");
+const categories = ["Food","Museum","Concert","Race","Books","Cinema","Party"];
 
-const checkboxs = document.getElementById("checkboxs");
-checkboxs.addEventListener('change', () => {
-    const checkedCheckboxes  = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
-    const selectedCategories = checkedCheckboxes.map(checkbox => checkbox.value); 
-    console.log(selectedCategories);
+categories.forEach(category => {
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.classList.add("category-checkbox");
+  checkbox.value = category;
 
-    if (selectedCategories.length === 0) {
-        mostrarLasTarjetas(event2, contenedorPrincipal);
-    } else {
-        const filteredEvents = event2.filter(event => selectedCategories.includes(event.category));
-        mostrarLasTarjetas(filteredEvents, contenedorPrincipal);
-    }
-    
+  const label = document.createElement("label");
+  label.appendChild(checkbox);
+  label.appendChild(document.createTextNode(category));
+
+  categoryContainer.appendChild(label);
 });
+
+const categoryCheckboxes = document.querySelectorAll(".category-checkbox");
+categoryCheckboxes.forEach(checkbox => {
+  checkbox.addEventListener("change", applyFilters);
+});
+
+document.getElementById("inputSearchBox").addEventListener("keyup", applyFilters);
+
+function applyFilters() {
+  const selectedCategories = Array.from(categoryCheckboxes)
+    .filter(checkbox => checkbox.checked)
+    .map(checkbox => checkbox.value);
+
+  const searchText = document.getElementById("inputSearchBox").value.toLowerCase();
+
+  const filteredEvents = arrayEventos.filter(event => {
+    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(event.category);
+    const searchMatch = event.name.toLowerCase().includes(searchText) || event.description.toLowerCase().includes(searchText);
+    return categoryMatch && searchMatch;
+  });
+
+  mostrarLasTarjetas(filteredEvents, contenedorCards);
+
+  const searchMessage = document.getElementById("searchMessage");
+  if (filteredEvents.length === 0) {
+    searchMessage.innerHTML = `
+      <img src="../images/ImgError.png" class="imgError img-fluid" id="imgError" alt="messageErrorCat">
+      <h2 class="text-center">Sorry, there are no matches! </h2>
+    `;
+  } else {
+    searchMessage.textContent = "";
+  }
+}
+
+function filtrarTarjetas(dataCards, currentDate) {
+  const tarjetasFiltradas = [];
+  for (const data of dataCards) {
+    if (new Date(data.date) > currentDate) {
+      tarjetasFiltradas.push(data);
+    }
+  }
+  return tarjetasFiltradas;
+}

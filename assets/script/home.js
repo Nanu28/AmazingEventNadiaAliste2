@@ -1,70 +1,72 @@
-document.addEventListener("keyup", event => {
-    if (event.target.matches("#inputSearchBox")) {
-        document.querySelectorAll(".card").forEach(evento => {
-            const searchText = event.target.value.toLowerCase();
-            const cardText = evento.textContent.toLowerCase();
-            if (cardText.includes(searchText)) {
-                evento.classList.remove("filtro");
-            } else {
-                evento.classList.add("filtro");
-            }
-        });
+const contenedorCards = document.getElementById("sectionCards");
+const url = "https://mindhub-xj03.onrender.com/api/amazing";
+let arrayEventos = [];
 
-        const searchMessage = document.getElementById("searchMessage");
-        const visibleCards = document.querySelectorAll(".card:not(.filtro)");
-
-        if (visibleCards.length === 0) {
-            searchMessage.innerHTML = `
-            <img src="./assets/images/ImgError.png" class="imgError img-fluid"  id="imgError" alt="messageErrorCat">
-            <h2 class="text-center">Sorry, there are no matches! </h2>
-            `;
-        } else {
-            searchMessage.textContent = "";
-        }
-    }
-});
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    arrayEventos = data.events;
+    mostrarLasTarjetas(arrayEventos, contenedorCards);
+  })
+  .catch(error => console.log(error));
 
 
-const contenedorPrincipal = document.getElementById("sectionCards");
-const event2 = data.events;
-
-const checkboxs = document.getElementById("checkboxs");
-checkboxs.addEventListener('change', () => {
-    const checkedCheckboxes  = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
-    const selectedCategories = checkedCheckboxes.map(checkbox => checkbox.value); 
-    console.log(selectedCategories);
-
-    if (selectedCategories.length === 0) {
-        mostrarLasTarjetas(event2, contenedorPrincipal);
-    } else {
-        const filteredEvents = event2.filter(event => selectedCategories.includes(event.category));
-        mostrarLasTarjetas(filteredEvents, contenedorPrincipal);
-    }
-    
-});
-
- function crearTarjeta(event2) {
-    return `<article class="card">
-         <img src="${event2.image}">
-         <div class="card-body text-center">
-             <h2 class="card-title">${event2.name}</h2>
-             <p class="card-text">${event2.description}</p>
-             <div class="d-flex justify-content-between align-items-center">
-                 <h3>Price: ${event2.price}</h3>
-                 <a href="./assets/pages/details.html?name=${event2.name}" class="btn btn-primary">Details</a>
-             </div>
-         </div>
-         </article>`;
-}
+import { crearTarjeta } from "../modules/fuciones.js";
 
 function mostrarLasTarjetas(listaDeTarjetas, contenedor) {
-    let template = '';
-    for (const event2 of listaDeTarjetas) {
-        const aux = crearTarjeta(event2);
-        template += aux;
-    }
-    contenedor.innerHTML = template;
+  let template = '';
+  for (const event of listaDeTarjetas) {
+    const aux = crearTarjeta(event);
+    template += aux;
+  }
+  contenedor.innerHTML = template;
 }
 
-mostrarLasTarjetas(event2, contenedorPrincipal);
+const categoryContainer = document.getElementById("categoriesChechboxContainer");
+const categories = ["Food","Museum","Concert","Race","Books","Cinema","Party"];
 
+categories.forEach(category => {
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.classList.add("category-checkbox");
+  checkbox.value = category;
+
+  const label = document.createElement("label");
+  label.appendChild(checkbox);
+  label.appendChild(document.createTextNode(category));
+
+  categoryContainer.appendChild(label);
+});
+
+const categoryCheckboxes = document.querySelectorAll(".category-checkbox");
+categoryCheckboxes.forEach(checkbox => {
+  checkbox.addEventListener("change", applyFilters);
+});
+
+document.getElementById("inputSearchBox").addEventListener("keyup", applyFilters);
+
+function applyFilters() {
+  const selectedCategories = Array.from(categoryCheckboxes)
+    .filter(checkbox => checkbox.checked)
+    .map(checkbox => checkbox.value);
+
+  const searchText = document.getElementById("inputSearchBox").value.toLowerCase();
+
+  const filteredEvents = arrayEventos.filter(event => {
+    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(event.category);
+    const searchMatch = event.name.toLowerCase().includes(searchText) || event.description.toLowerCase().includes(searchText);
+    return categoryMatch && searchMatch;
+  });
+
+  mostrarLasTarjetas(filteredEvents, contenedorCards);
+
+  const searchMessage = document.getElementById("searchMessage");
+  if (filteredEvents.length === 0) {
+    searchMessage.innerHTML = `
+      <img src="./assets/images/ImgError.png" class="imgError img-fluid" id="imgError" alt="messageErrorCat">
+      <h2 class="text-center">Sorry, there are no matches! </h2>
+    `;
+  } else {
+    searchMessage.textContent = "";
+  }
+}
